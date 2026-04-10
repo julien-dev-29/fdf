@@ -1,6 +1,6 @@
 NAME = fdf
 
-SRC = fdf.c srcs/line.c srcs/utils.c  srcs/get_next_line.c srcs/jr_split.c
+SRC = fdf.c srcs/*.c
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror

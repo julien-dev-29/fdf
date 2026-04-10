@@ -1,26 +1,41 @@
 #include "fdf.h"
 
-static void  jr_get_height(char *filename)
+void init_map(char *filename)
 {
-	int		fd;
-	int		height;
+	t_map	*map;
 	char	*line;
+	char	**split;
+	int		fd;
 	int		i;
+	int		j;
+	int		k;
 
-	height = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		jr_error("Failed to open file");
-	while ((i = get_next_line(fd, &line)) != 0)
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		jr_error("Failed to init map");
+	map->height = jr_get_height(filename);
+	map->width = jr_get_width(filename);;
+	map->array = malloc(sizeof(int **) * map->height);
+	if (!map->array)
+		jr_error("Failed to allocate map array");
+	i = 0;
+	j = 0;
+	while ((k = get_next_line(fd, &line)) > 0)
 	{
-		if (i == -1)
+		split = jr_split(line, ' ');
+		map->array[i] = malloc(sizeof(int) * map->width);
+		if (!map->array[i])
+			jr_error("malloc failed");
+		while (split[j])
 		{
-			free(line);
-			jr_error("Failed to parse file");
+			map->array[i][j] = jr_atoi(split[j]);	
+			j++;
 		}
-		printf("%s\n", line);
-		height++;
-		printf("%d\n", height);
+		free(line);
+		i++;
 	}
 }
 
@@ -38,8 +53,6 @@ int main(void)
 
 	draw_line(&img, 0, 0, WIDTH, HEIGHT, 0xFFFFFF);
 	draw_line(&img, 0, 720, 1080, 0, 0xFFFFFF);
-
-	jr_get_height("42.fdf");
 
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
