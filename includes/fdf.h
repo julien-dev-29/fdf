@@ -37,9 +37,9 @@ typedef struct s_point {
 }				t_point;
 
 typedef struct s_map {
-	int	height;
-	int	width;
-	int	***array;
+	int		height;
+	int		width;
+	t_point	*points;
 }				t_map;
 
 
@@ -55,9 +55,10 @@ typedef struct	s_data {
 void	draw_line(t_data *img, int startX, int startY, int endX, 
 													int endY, int color);
 char    **jr_split(const char *s, char sep);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	jr_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	jr_error(const char *message);
 int		jr_get_height(char *filename);
 int		jr_get_width(char *filename);
+int		jr_get_total_points(char *filename);
 
 #endif

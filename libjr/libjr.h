@@ -61,7 +61,7 @@ void	jr_striteri(char *s, void (*f)(unsigned int, char *));
 char	*jr_strmap(const char *s, char (*f)(char));
 char	*jr_strmapi(const char *s, char (*f)(unsigned int, char));
 int		jr_strequ(const char *s1, const char *s2);
-char	*jr_strsub(const char *s, unsigned int start, size_t len);
+char	*jr_substr(char *s, unsigned int start, size_t len);
 char	*jr_strjoin(char *s1, char *s2);
 char	*jr_strtrim(const char *s);
 char	**jr_strsplit(const char *s, char c);
